@@ -38,16 +38,16 @@ class Player {
  public:
   Player() = delete;
   Player(Mp3Module* mp3_module, KeyEventSource* keypad, VolumeKnob* volume_knob,
-         JLed* status_led);
+         JLed* status_led, JLed* pp_led, JLed* next_led, JLed* prev_led);
 
   // call from main loop() to update state
   void update();
 
  private:
   // config: maximum allowed volume
-  static constexpr uint8_t kVolumeMax = 22;
+  static constexpr uint8_t kVolumeMax = 12;
   // config: volume of jingle
-  static constexpr uint8_t kVolumeJingle = 14;
+  static constexpr uint8_t kVolumeJingle = 5;
 
   // read & update volume
   uint8_t updateVolume();
@@ -57,6 +57,10 @@ class Player {
   VolumeKnob* const volume_knob_;
   KeyEventSource* const keypad_;
   JLed* const status_led_;
+  JLed* const pp_led_;
+  JLed* const next_led_;
+  JLed* const prev_led_;
+  
   eState state_;
   eKeypadMode keypad_mode_ = eKeypadMode::PLAYLIST;
   uint8_t last_volume_ = 0;

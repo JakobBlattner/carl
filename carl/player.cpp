@@ -23,12 +23,16 @@
 #include "log.h"
 #include "config.h"
 
-Player::Player(Mp3Module* mp3_module, KeyEventSource* keypad,
-               VolumeKnob* volume_knob, JLed* status_led)
+Player::Player(Mp3Module* mp3_module, KeyEventSource* keypad, VolumeKnob* volume_knob, JLed* status_led, JLed* pp_led, JLed* next_led, JLed* prev_led)
     : mp3_module_(mp3_module),
       volume_knob_(volume_knob),
       keypad_(keypad),
+      
       status_led_(status_led),
+      pp_led_(pp_led),
+      next_led_(next_led),
+      prev_led_(prev_led),
+     
       state_(eState::PLAY_JINGLE_START),
       keypad_mode_(eKeypadMode::PLAYLIST) {}
 
@@ -37,7 +41,12 @@ void Player::update() {
         case eState::PLAYER: {
             keypad_->update();
             mp3_module_->update();
+            
             status_led_->Update();
+            pp_led_->Update();
+            next_led_->Update();
+            prev_led_->Update();
+            
             updateVolume();
             checkKeyEvents();
         } break;
@@ -59,11 +68,20 @@ void Player::update() {
                 LOG("p play no jingles found");
                 state_ = eState::PLAYER;
             }
+            LOG("p activating leds on startup");
+            pp_led_->FadeOn(500);
+            pp_led_->Blink(750, 750).Forever();
+            next_led_->FadeOn(500);
+            prev_led_->FadeOn(500);
         } break;
 
         case eState::PLAY_JINGLE: {
             // while playing the jingle, controls are intentionally disabled ;)
             status_led_->Update();
+            pp_led_->Update();
+            next_led_->Update();
+            prev_led_->Update();
+                                 
             mp3_module_->update();
             if (!mp3_module_->isBusy() &&
                 (millis() - start_time_jingle_) > 500) {
@@ -112,14 +130,17 @@ void Player::checkKeyEvents() {
                 if (mp3_module_->isBusy()) {
                     // entering pause
                     status_led_->Breathe(4000).DelayAfter(6000).Forever();
+                    pp_led_->Blink(750, 750).Forever();
                 } else {
                     status_led_->FadeOff(1000).Repeat(1);
+                    pp_led_->On();
                 }
                 mp3_module_->setEventPlayPause();
             } else {
                 // End config mode
                 LOG("ending config mode");
                 status_led_->Blink(50, 50).Repeat(5);
+                
                 keypad_mode_ = eKeypadMode::PLAYLIST;
             }
             break;
@@ -128,6 +149,11 @@ void Player::checkKeyEvents() {
             LOG("k enter config mode");
             keypad_mode_ = eKeypadMode::CONFIG;
             status_led_->Blink(50, 50).Repeat(5);
+            
+            pp_led_->Blink(50, 50).Repeat(5);
+            next_led_->Blink(50, 50).Repeat(5);
+            prev_led_->Blink(50, 50).Repeat(5);
+            
             break;
 #endif
         case KeyEvent::kNext:
@@ -135,6 +161,8 @@ void Player::checkKeyEvents() {
                 LOG("k next");
                 mp3_module_->setEventNext();
                 status_led_->FadeOff(250).Repeat(1);
+                next_led_->Off();
+                next_led_->FadeOn(100);
             }
             break;
         case KeyEvent::kPrev:
@@ -142,6 +170,8 @@ void Player::checkKeyEvents() {
                 LOG("k prev");
                 mp3_module_->setEventPrev();
                 status_led_->FadeOff(250).Repeat(1);
+                prev_led_->Off();
+                prev_led_->FadeOn(100);
             }
             break;
         case KeyEvent::kFolder1:
@@ -159,6 +189,8 @@ void Player::checkKeyEvents() {
             if (keypad_mode_ == eKeypadMode::PLAYLIST) {
                 mp3_module_->setEventPlaySong(folder, 0);
                 status_led_->FadeOff(250).Repeat(1);
+                pp_led_->FadeOn(500).Repeat(1);
+                               
             } else if (keypad_mode_ == eKeypadMode::CONFIG) {
                 // in config mode: Folder Button #1 cycles through eq modes
                 if (keyEvent == KeyEvent::kFolder1) {

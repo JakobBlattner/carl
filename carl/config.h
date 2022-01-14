@@ -41,15 +41,17 @@
 // See also mp3_driver_factory.h
 // #define USE_MAKUNA_MP3_DRIVER
 // #define USE_DFROBOT_MP3_DRIVER
-// #define USE_POWERBROKER_MP3_DRIVER
+#define USE_POWERBROKER_MP3_DRIVER
 
 // Hardware configuration - where stuff is connected / Konfiguration der
 // genutzen GPIO am Arduino Pro Mini.
-constexpr uint8_t PIN_BUTTONS = A2;
-constexpr uint8_t PIN_VOLUME = A3;
-constexpr uint8_t PIN_VOLUME_POWER = 11;
-constexpr uint8_t PIN_RX = 9;
-constexpr uint8_t PIN_TX = 8;
-constexpr uint8_t PIN_LED = 10;
-constexpr uint8_t PIN_DFPLAYER_BUSY = 12;
-
+constexpr uint8_t PIN_BUTTONS = A3;
+constexpr uint8_t PIN_VOLUME = A2;
+constexpr uint8_t PIN_VOLUME_POWER = 3;
+constexpr uint8_t PIN_RX = 10;
+constexpr uint8_t PIN_TX = 11;
+constexpr uint8_t PIN_LED = 12;
+constexpr uint8_t PP_LED = 8;
+constexpr uint8_t NEXT_LED = 6;
+constexpr uint8_t PREV_LED = 7;
+constexpr uint8_t PIN_DFPLAYER_BUSY = 5;

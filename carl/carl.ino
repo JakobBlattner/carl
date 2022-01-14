@@ -48,11 +48,16 @@ void setup() {
     auto mp3driver = new_mp3_driver(mp3serial, PIN_DFPLAYER_BUSY);
     auto mp3module = new Mp3Module(mp3driver, Mp3Module::ePlayMode::REPEAT);
     auto status_led = new JLed(PIN_LED);
+    auto pp_led = new JLed(PP_LED);
+    auto next_led = new JLed(NEXT_LED);
+    auto prev_led = new JLed(PREV_LED);
+    
     status_led->LowActive();
+        
     auto keypad = new Keypad(PIN_BUTTONS);
     auto virtual_keypad = new VirtualKeypad(&Serial, keypad);
     auto volume_knob = new VolumeKnob(PIN_VOLUME, PIN_VOLUME_POWER);
-    player_ = new Player(mp3module, virtual_keypad, volume_knob, status_led);
+    player_ = new Player(mp3module, virtual_keypad, volume_knob, status_led, pp_led, next_led, prev_led);
 
     for (auto i = 0; i < 100; i++) {
         randomSeed(analogRead(0));

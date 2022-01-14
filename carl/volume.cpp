@@ -41,7 +41,7 @@ uint16_t VolumeKnob::readVolume(uint16_t volume_max) {
 
   // poti gets powered only if needed.
   digitalWrite(pin_power_, HIGH);
-  auto value = analogRead(pin_poti_);
+  auto value = 1023 - analogRead(pin_poti_);
   if (value > 1010) {
     value = 1023;
   } else if (value < 10) {
@@ -50,7 +50,6 @@ uint16_t VolumeKnob::readVolume(uint16_t volume_max) {
   digitalWrite(pin_power_, LOW);
 
   const auto new_reading = volume_max - ((value * volume_max) / 1023);
-
   // remove jitter on poti readings, see
   // https://www.norwegiancreations.com/2015/10/tutorial-potentiometers-with-arduino-and-filtering/
   last_reading_ = (kAlpha * new_reading) + ((1 - kAlpha) * last_reading_);

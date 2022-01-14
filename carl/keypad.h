@@ -49,8 +49,9 @@ class Keypad : public KeyEventSource {
     // (1023) case for button #12.
     //
     static constexpr int button_values_[] = {
-        100, /* dummy button 0, will be ignored */
-        323, 344, 369, 398, 431, 470, 517, 574, 645, 736, 857, 1023};
+        0, /* dummy button 0, will be ignored */
+        486, 511, 538, 568, 601, 639, 682, 730, 787, 853, 931, 1023};
+        //{bnext, b9, b6, b3, b2, b5, b8, bpp, b7, b4, bprev, b1}
 
     constexpr static uint16_t kAnalogResolution = 1100;
     constexpr static uint16_t kDebounceDurationMs = 20;

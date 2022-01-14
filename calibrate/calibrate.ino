@@ -8,10 +8,12 @@ constexpr auto PIN_BUTTONS = A2;
 
 void setup() {
     pinMode(PIN_BUTTONS, INPUT);
+    pinMode(3,OUTPUT);
+    digitalWrite(3,HIGH);
     Serial.begin(9600);
 }
 
 void loop() {
     Serial.println(analogRead(PIN_BUTTONS));
-    delay(50);
+    delay(100);
 }

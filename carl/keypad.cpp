@@ -26,18 +26,18 @@
 // wiring order of buttons, see documentation.
 namespace RawKey {
 enum Type : int {
-    kPlayPause = 12,
-    kNext = 2,
-    kPrev = 1,
-    kFolder1 = 9,
-    kFolder2 = 10,
-    kFolder3 = 11,
-    kFolder4 = 8,
-    kFolder5 = 7,
-    kFolder6 = 6,
-    kFolder7 = 3,
-    kFolder8 = 4,
-    kFolder9 = 5,
+    kPlayPause = 8,
+    kNext = 1,
+    kPrev = 11,
+    kFolder1 = 12,
+    kFolder2 = 5,
+    kFolder3 = 4,
+    kFolder4 = 10,
+    kFolder5 = 6,
+    kFolder6 = 3,
+    kFolder7 = 9,
+    kFolder8 = 7,
+    kFolder9 = 2,
 };
 }  // namespace RawKey
 
@@ -71,12 +71,11 @@ KeyEvent::Type Keypad::getKeyEvent() {
         return KeyEvent::kFolder8;
     else if (buttons_.onPress(RawKey::kFolder9))
         return KeyEvent::kFolder9;
-    else if (buttons_.onPressAfter(RawKey::kPlayPause, kDurationLongPressMs))
-        return KeyEvent::kStop;
+    //else if (buttons_.onPressAfter(RawKey::kPlayPause, kDurationLongPressMs))
+    //    return KeyEvent::kStop;
     else if (buttons_.onPressAfter(RawKey::kNext, kDurationLongPressMs))
         return KeyEvent::kConfigMode;
-    else if (buttons_.onReleaseBefore(RawKey::kPlayPause,
-                                      kDurationShortPressMs))
+    else if (buttons_.onReleaseBefore(RawKey::kPlayPause,kDurationShortPressMs))
         return KeyEvent::kPlayPause;
     else if (buttons_.onReleaseBefore(RawKey::kNext, kDurationShortPressMs))
         return KeyEvent::kNext;
