@@ -28,10 +28,10 @@
 // #define USE_LARGE_FOLDERS
 
 // uncomment to disable logging
-// #define NO_LOGGING
+//#define NO_LOGGING
 
 // uncomment to enable the config mode option
-// #define ENABLE_CONFIG_MODE
+// #define ENABLE_CONFIG_MODEf
 
 // Select  DFPlayerMini driver lib to use.
 // Don't forget to install the needed lib!
@@ -39,9 +39,9 @@
 // Leave untouched to use default (Powerbroker driver) or if you set
 // the library in your platform.ini file. Otherwise uncomment driver to use.
 // See also mp3_driver_factory.h
-// #define USE_MAKUNA_MP3_DRIVER
-// #define USE_DFROBOT_MP3_DRIVER
-#define USE_POWERBROKER_MP3_DRIVER
+#define USE_MAKUNA_MP3_DRIVER
+//#define USE_DFROBOT_MP3_DRIVER
+//#define USE_POWERBROKER_MP3_DRIVER
 
 // Hardware configuration - where stuff is connected / Konfiguration der
 // genutzen GPIO am Arduino Pro Mini.

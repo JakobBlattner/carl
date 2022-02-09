@@ -85,24 +85,37 @@ class Mp3DriverMakunaDfPlayerMini : public Mp3Driver {
         // false if the busy_pin GPIO is not correctly connected.
         pinMode(busy_pin_, INPUT_PULLUP);
         df_player_.begin();
+        delay(150);
         df_player_.setPlaybackSource(DfMp3_PlaySource::DfMp3_PlaySource_Sd);
+        delay(150);
     }
 
-    void start() override { df_player_.start(); }
+    void start() override { 
+      df_player_.start(); 
+    }
 
-    void pause() override { df_player_.pause(); }
+    void pause() override { 
+      df_player_.pause(); 
+    }
 
-    void stop() override { df_player_.stop(); }
+    void stop() override { 
+      df_player_.stop(); 
+    }
 
     void playSongFromFolder(uint8_t folder, uint8_t song) override {
         df_player_.playFolderTrack(folder, song);
+        delay(150);
     }
 
     void playSongFromLargeFolder(uint8_t folder, uint16_t song) override {
         df_player_.playFolderTrack16(folder, song);
+        delay(150);
     }
 
-    void setVolume(uint8_t volume) override { df_player_.setVolume(volume); }
+    void setVolume(uint8_t volume) override { 
+      df_player_.setVolume(volume); 
+      delay(150);
+    }
 
     uint8_t getMaxVolume() const override { return 30; }
 

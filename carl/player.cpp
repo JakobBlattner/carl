@@ -29,7 +29,7 @@ Player::Player(Mp3Module* mp3_module, KeyEventSource* keypad, VolumeKnob* volume
       keypad_(keypad),
       
       status_led_(status_led),
-      pp_led_(pp_led),
+      pp_led_ (pp_led),
       next_led_(next_led),
       prev_led_(prev_led),
      
@@ -70,22 +70,22 @@ void Player::update() {
             }
             LOG("p activating leds on startup");
             pp_led_->FadeOn(500);
-            pp_led_->Blink(750, 750).Forever();
             next_led_->FadeOn(500);
             prev_led_->FadeOn(500);
-        } break;
 
-        case eState::PLAY_JINGLE: {
-            // while playing the jingle, controls are intentionally disabled ;)
             status_led_->Update();
             pp_led_->Update();
             next_led_->Update();
             prev_led_->Update();
-                                 
+        } break;
+
+        case eState::PLAY_JINGLE: {
+            // while playing the jingle, controls are intentionally disabled ;)
+                                
             mp3_module_->update();
-            if (!mp3_module_->isBusy() &&
-                (millis() - start_time_jingle_) > 500) {
+            if (!mp3_module_->isBusy() && (millis() - start_time_jingle_) > 500) {
                 LOG("p play jingle finished");
+                updateVolume();
                 mp3_module_->setEventStop();
                 // Jingle is finished. Set Breathe effect and song 0/0
                 mp3_module_->setSkipMode(Mp3Module::ePlayMode::REPEAT);
@@ -140,6 +140,7 @@ void Player::checkKeyEvents() {
                 // End config mode
                 LOG("ending config mode");
                 status_led_->Blink(50, 50).Repeat(5);
+                pp_led_->Blink(250, 250).Forever();
                 
                 keypad_mode_ = eKeypadMode::PLAYLIST;
             }
@@ -150,9 +151,9 @@ void Player::checkKeyEvents() {
             keypad_mode_ = eKeypadMode::CONFIG;
             status_led_->Blink(50, 50).Repeat(5);
             
-            pp_led_->Blink(50, 50).Repeat(5);
-            next_led_->Blink(50, 50).Repeat(5);
-            prev_led_->Blink(50, 50).Repeat(5);
+            pp_led_->Blink(150, 150).Repeat(5);
+            next_led_->Blink(150, 150).Repeat(5);
+            prev_led_->Blink(150, 150).Repeat(5);
             
             break;
 #endif

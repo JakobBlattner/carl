@@ -4,12 +4,12 @@
 // Kalibriersketch für das Tastenfeld
 // Calibration sketch for the key pad
 //
-constexpr auto PIN_BUTTONS = A2;
+constexpr auto PIN_BUTTONS = A3;
 
 void setup() {
     pinMode(PIN_BUTTONS, INPUT);
-    pinMode(3,OUTPUT);
-    digitalWrite(3,HIGH);
+    //pinMode(3,OUTPUT);
+    //digitalWrite(3,HIGH);
     Serial.begin(9600);
 }
 

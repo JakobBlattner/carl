@@ -48,6 +48,7 @@ class Mp3DriverPowerBrokerDfPlayerMini : public Mp3Driver {
         serial->begin(9600);
         pinMode(busy_pin_, INPUT_PULLUP);
         df_player_.begin(*serial, kDfDebug, kCommTimeoutMs);
+        delay(1000);
         df_player_.playbackSource(dfplayer::TF);    // TF = SD Card
     }
 

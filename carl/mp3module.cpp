@@ -26,10 +26,11 @@ Mp3Module::Mp3Module(Mp3Driver* mp3_driver, ePlayMode skip_mode)
     : mp3_driver_(mp3_driver), skip_mode_(skip_mode) {
 #ifdef USE_LARGE_FOLDERS
     LOG("m using large folders");
-#endif
+#endif    
     LOG("m scanning folders...");
     // get number of files per folder so we can later browse the folders.
     memset(folder_count_, 0, sizeof(uint16_t) * kMaxFolders);
+    setVolume(0); //sets volume to 0, as MH2024K-24SS plays first song when getFileCountInFolder is used
     for (auto i = 0; i < kMaxFolders; i++) {
         // some module return -1 even if there are files in the folder.
         // in this case we try to read again

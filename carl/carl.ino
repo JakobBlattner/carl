@@ -43,14 +43,24 @@ void setup() {
     LOG_INIT(&Serial);
     LOG("carl starting.");
 
-    // DFPlayerMini module and Arduino communicate through software serial iface
-    auto mp3serial = new SoftwareSerial(PIN_RX, PIN_TX);
-    auto mp3driver = new_mp3_driver(mp3serial, PIN_DFPLAYER_BUSY);
-    auto mp3module = new Mp3Module(mp3driver, Mp3Module::ePlayMode::REPEAT);
+    LOG("Initializing LEDs and starting to blink");
     auto status_led = new JLed(PIN_LED);
     auto pp_led = new JLed(PP_LED);
     auto next_led = new JLed(NEXT_LED);
     auto prev_led = new JLed(PREV_LED);
+
+    pp_led->On();
+    next_led->On();
+    prev_led->On();
+
+    pp_led->Update();
+    next_led->Update();
+    prev_led->Update();
+
+    // DFPlayerMini module and Arduino communicate through software serial iface
+    auto mp3serial = new SoftwareSerial(PIN_RX, PIN_TX);
+    auto mp3driver = new_mp3_driver(mp3serial, PIN_DFPLAYER_BUSY);
+    auto mp3module = new Mp3Module(mp3driver, Mp3Module::ePlayMode::REPEAT);
     
     status_led->LowActive();
         
@@ -64,6 +74,6 @@ void setup() {
     }
 }
 
-void loop() {
+void loop() {    
     player_->update();
 }
