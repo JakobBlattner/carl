@@ -85,13 +85,14 @@ class Mp3DriverMakunaDfPlayerMini : public Mp3Driver {
         // false if the busy_pin GPIO is not correctly connected.
         pinMode(busy_pin_, INPUT_PULLUP);
         df_player_.begin();
-        delay(150);
+        delay(200);
         df_player_.setPlaybackSource(DfMp3_PlaySource::DfMp3_PlaySource_Sd);
-        delay(150);
+        delay(200);
     }
 
     void start() override { 
       df_player_.start(); 
+      delay(200);
     }
 
     void pause() override { 
@@ -104,23 +105,24 @@ class Mp3DriverMakunaDfPlayerMini : public Mp3Driver {
 
     void playSongFromFolder(uint8_t folder, uint8_t song) override {
         df_player_.playFolderTrack(folder, song);
-        delay(150);
+        delay(200);
     }
 
     void playSongFromLargeFolder(uint8_t folder, uint16_t song) override {
         df_player_.playFolderTrack16(folder, song);
-        delay(150);
+        delay(200);
     }
 
     void setVolume(uint8_t volume) override { 
       df_player_.setVolume(volume); 
-      delay(150);
+      delay(100);
     }
 
     uint8_t getMaxVolume() const override { return 30; }
 
     void setEqMode(uint8_t mode) override {
         df_player_.setEq(static_cast<DfMp3_Eq>(mode));
+        delay(200);
     }
 
     uint8_t getNumEqModes() const override {
@@ -130,6 +132,7 @@ class Mp3DriverMakunaDfPlayerMini : public Mp3Driver {
 
     int16_t getFileCountInFolder(uint8_t folder) override {
         return df_player_.getFolderTrackCount(folder);
+        delay(200);
     }
 
     bool isBusy() override { return digitalRead(busy_pin_) == LOW; }

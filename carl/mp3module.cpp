@@ -176,6 +176,7 @@ bool Mp3Module::isBusy() const { return mp3_driver_->isBusy(); }
 // returns true if the player is playing the current song at least for
 // timespan ms
 bool Mp3Module::isCurSongPlayingSince(uint32_t timespan) const {
+    LOG("asking how long cur song is playing");
     return song_playing_since_ != 0 &&
            (millis() - song_playing_since_) >= timespan;
 }

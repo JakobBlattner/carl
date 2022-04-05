@@ -89,7 +89,8 @@ void Player::update() {
                 mp3_module_->setEventStop();
                 // Jingle is finished. Set Breathe effect and song 0/0
                 mp3_module_->setSkipMode(Mp3Module::ePlayMode::REPEAT);
-                mp3_module_->setNextSong(0, 0);
+                auto randomStartSong = mp3_module_->getRandomSongFromFolder(random(0,8));
+                mp3_module_->setNextSong(randomStartSong.folder_,randomStartSong.song_);
                 status_led_->Breathe(4000).DelayAfter(3000).Forever();
                 state_ = eState::PLAYER;
             }
