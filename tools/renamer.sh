@@ -67,4 +67,5 @@ for fn in "$@"; do
     else 
         mv "${fn}" "$NEWNAME.mp3"
     fi
+	read -p "Press any key to continue" x
 done

@@ -39,9 +39,9 @@
 // Leave untouched to use default (Powerbroker driver) or if you set
 // the library in your platform.ini file. Otherwise uncomment driver to use.
 // See also mp3_driver_factory.h
-#define USE_MAKUNA_MP3_DRIVER
-//#define USE_DFROBOT_MP3_DRIVER
-//#define USE_POWERBROKER_MP3_DRIVER
+#define USE_MAKUNA_MP3_DRIVER //library name: DFPlayerMini_Fast
+//#define USE_DFROBOT_MP3_DRIVER //library name: DFRobotDFPlayerMini
+//#define USE_POWERBROKER_MP3_DRIVER //library name: DFPlayer Mini Mp3 by Makuna
 
 // Hardware configuration - where stuff is connected / Konfiguration der
 // genutzen GPIO am Arduino Pro Mini.

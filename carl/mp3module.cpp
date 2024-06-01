@@ -94,16 +94,17 @@ void Mp3Module::update() {
                 return;
             }
 
-            if (event == eEvent::NEXT || !busy) {
+            //start_playing_song_from_folder is used for a dirty fix for "skipping one song when one song ended"
+            if (event == eEvent::NEXT || (!busy && millis() - start_playing_song_from_folder > 2000)) {
                 if (skip_mode_ == ePlayMode::SINGLE_SONG) {
                     LOG("m play single song > stopped");
                     state_ = eState::STOPPED;
                     return;
                 }
-
                 LOG("m next");
                 const auto info = getNextSong();
                 if (info.found_) {
+                    start_playing_song_from_folder = millis();
                     playSongFromFolder(info.folder_, info.song_);
                     state_ = eState::START_PLAYING;
                 } else {
